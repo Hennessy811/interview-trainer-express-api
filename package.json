@@ -1,0 +1,33 @@
+{
+  "name": "interview-trainer-express-api",
+  "version": "0.0.0",
+  "private": false,
+  "main": "dist/start.js",
+  "scripts": {
+    "distribute": "yarn build-ts && node -r esm dist/start.js",
+    "develop": "concurrently -k -i -p \"[{name}]\" -n \"Node,TypeScript\" -c \"yellow.bold,cyan.bold\" \"yarn watch-js\" \"yarn watch-ts\"",
+    "build-ts": "tsc --skipLibCheck",
+    "watch-ts": "tsc -w --skipLibCheck",
+    "watch-js": "nodemon -r esm dist/start.js"
+  },
+  "dependencies": {
+    "@typegoose/typegoose": "^7.3.4",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
+    "express": "~4.16.1",
+    "mongoose": "^5.10.2",
+    "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/register": "^7.11.5",
+    "@types/express": "^4.17.8",
+    "@types/node": "^14.6.2",
+    "concurrently": "^5.0.0",
+    "nodemon": "^2.0.1",
+    "typescript": "^4.0.2"
+  }
+}
