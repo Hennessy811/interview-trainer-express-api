@@ -9,7 +9,7 @@ var router = express_1.default.Router();
 /* GET home page. */
 router.get("/", async function (req, res, next) {
     console.log("something happens");
-    const user = await models_1.findUser("mitia2022@gmail.com");
+    const user = await models_1.listUsers();
     res.json({ ok: user });
 });
 exports.default = router;

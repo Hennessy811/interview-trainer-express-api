@@ -29,16 +29,19 @@ const UserModel = getModelForClass(User, {
 });
 
 // Get or create user
-export async function findUser(email: string) {
-  console.log("finduser called");
+export async function findUser(email: string, fullUser) {
   let user = await UserModel.findOne({ email });
 
   if (!user) {
     try {
-      user = await UserModel.create({ email } as User);
+      user = await UserModel.create({ ...fullUser } as User);
     } catch (err) {
       user = await UserModel.findOne({ email });
     }
   }
   return user;
+}
+export async function listUsers() {
+  let users = await UserModel.find();
+  return users;
 }

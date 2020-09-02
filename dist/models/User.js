@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findUser = exports.User = void 0;
+exports.listUsers = exports.findUser = exports.User = void 0;
 const typegoose_1 = require("@typegoose/typegoose");
 class User {
 }
@@ -47,12 +47,11 @@ const UserModel = typegoose_1.getModelForClass(User, {
     schemaOptions: { timestamps: true },
 });
 // Get or create user
-async function findUser(email) {
-    console.log("finduser called");
+async function findUser(email, fullUser) {
     let user = await UserModel.findOne({ email });
     if (!user) {
         try {
-            user = await UserModel.create({ email });
+            user = await UserModel.create(Object.assign({}, fullUser));
         }
         catch (err) {
             user = await UserModel.findOne({ email });
@@ -61,4 +60,9 @@ async function findUser(email) {
     return user;
 }
 exports.findUser = findUser;
+async function listUsers() {
+    let users = await UserModel.find();
+    return users;
+}
+exports.listUsers = listUsers;
 //# sourceMappingURL=User.js.map

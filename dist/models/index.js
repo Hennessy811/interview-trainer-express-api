@@ -23,5 +23,5 @@ mongoose_1.default.connect(process.env.MONGODB_URI, {
 mongoose_1.default.set("useCreateIndex", true);
 console.log("stated");
 __exportStar(require("./User"), exports);
-// export * from "./Topics";
+__exportStar(require("./Scene"), exports);
 //# sourceMappingURL=index.js.map

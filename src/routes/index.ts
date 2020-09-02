@@ -1,5 +1,5 @@
 import express from "express";
-import { findUser } from "../models";
+import { findUser, listUsers } from "../models";
 
 var router = express.Router();
 
@@ -7,7 +7,7 @@ var router = express.Router();
 router.get("/", async function (req, res, next) {
   console.log("something happens");
 
-  const user = await findUser("mitia2022@gmail.com");
+  const user = await listUsers();
   res.json({ ok: user });
 });
 

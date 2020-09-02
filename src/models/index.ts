@@ -12,4 +12,4 @@ mongoose.set("useCreateIndex", true);
 console.log("stated");
 
 export * from "./User";
-// export * from "./Topics";
+export * from "./Scene";
