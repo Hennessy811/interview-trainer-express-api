@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 var router = express_1.default.Router();
 const models_1 = require("../../models");
+const Session_1 = require("../../models/Session");
 router.get("/", function (req, res, next) {
     models_1.listScenarios().then((r) => {
-        console.log(r);
         res.json(r);
     });
     //   res.json({ ok: "respond with a resource" });
@@ -18,7 +18,6 @@ router.post("/add", function (req, res, next) {
     if (json) {
         models_1.createScenario(json)
             .then((r) => {
-            console.log(r);
             res.status(200).json({ ok: r });
         })
             .catch((e) => res.status(500).json({ error: e }));
@@ -27,13 +26,40 @@ router.post("/add", function (req, res, next) {
         res.send("respond with a resource");
     }
 });
+router.post("/start", function (req, res, next) {
+    const json = req.body;
+    if (json) {
+        Session_1.createSession(json.userId, json.scenarioId)
+            .then((r) => {
+            res.status(200).json(r);
+        })
+            .catch((e) => res.status(500).json({ error: e }));
+    }
+    else {
+        res.send("respond with a resource");
+    }
+});
+router.post("/join", function (req, res, next) {
+    const json = req.body;
+    if (json) {
+        Session_1.joinSession(json.sessionId, json.userId, json.role)
+            .then((r) => {
+            res.status(200).json(r);
+        })
+            .catch((e) => res.status(500).json({ error: e }));
+    }
+    else {
+        res.send("respond with a resource");
+    }
+});
 router.get("/:id", function (req, res, next) {
-    console.log(req);
-    models_1.getScenario(req.params.id).then((r) => {
-        console.log(r);
+    models_1.getScenario(req.params.id)
+        .then((r) => {
         res.json(r);
+    })
+        .catch(() => {
+        res.status(500).json({ error: "error" });
     });
-    //   res.json({ ok: "respond with a resource" });
 });
 exports.default = router;
 //# sourceMappingURL=index.js.map

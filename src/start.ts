@@ -8,8 +8,7 @@ import app from "./app";
 import debg from "debug";
 import http from "http";
 var debug = debg("interview-trainer-express-api:server");
-// var debug = require("debug")("interview-trainer-express-api:server");
-// var http = require("http");
+import socket from "socket.io";
 
 /**
  * Get port from environment and store in Express.
@@ -27,6 +26,25 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
+
+const io = socket.listen(server);
+// var debug = require("debug")("interview-trainer-express-api:server");
+// var http = require("http");
+
+io.on("connection", (socket) => {
+  // console.log(socket.handshake);
+  console.log("user connected");
+  // TODO: create or join session
+
+  socket.on("message_k", (msg) => {
+    console.log(msg);
+    socket.emit("message_i", msg);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+});
 
 server.listen(port);
 server.on("error", onError);

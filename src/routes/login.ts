@@ -11,8 +11,7 @@ router.post("/", function (req, res, next) {
   if (json) {
     findUser(json.email, json)
       .then((r) => {
-        console.log(r);
-        res.status(200).json({ ok: "saved" });
+        res.status(200).json(r);
       })
       .catch((e) => res.status(500).json({ error: e }));
   } else {

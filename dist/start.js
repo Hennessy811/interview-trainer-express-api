@@ -11,8 +11,7 @@ const app_1 = __importDefault(require("./app"));
 const debug_1 = __importDefault(require("debug"));
 const http_1 = __importDefault(require("http"));
 var debug = debug_1.default("interview-trainer-express-api:server");
-// var debug = require("debug")("interview-trainer-express-api:server");
-// var http = require("http");
+const socket_io_1 = __importDefault(require("socket.io"));
 /**
  * Get port from environment and store in Express.
  */
@@ -25,6 +24,21 @@ var server = http_1.default.createServer(app_1.default);
 /**
  * Listen on provided port, on all network interfaces.
  */
+const io = socket_io_1.default.listen(server);
+// var debug = require("debug")("interview-trainer-express-api:server");
+// var http = require("http");
+io.on("connection", (socket) => {
+    // console.log(socket.handshake);
+    console.log("user connected");
+    // TODO: create or join session
+    socket.on("message_k", (msg) => {
+        console.log(msg);
+        socket.emit("message_i", msg);
+    });
+    socket.on("disconnect", () => {
+        console.log("user disconnected");
+    });
+});
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);

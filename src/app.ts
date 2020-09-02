@@ -5,7 +5,6 @@ import logger from "morgan";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
-
 dotenv.config();
 
 import indexRouter from "./routes/index";
