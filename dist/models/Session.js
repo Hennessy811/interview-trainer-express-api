@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.joinSession = exports.createSession = exports.Session = void 0;
+exports.joinSession = exports.getSession = exports.createSession = exports.Session = void 0;
 const typegoose_1 = require("@typegoose/typegoose");
 const User_1 = require("./User");
 const Scene_1 = require("./Scene");
@@ -40,6 +40,11 @@ async function createSession(interviewerId, scenarioId) {
     return session;
 }
 exports.createSession = createSession;
+async function getSession(id) {
+    const session = await SessionModel.findById(id);
+    return session;
+}
+exports.getSession = getSession;
 async function joinSession(sessionId, userId, role) {
     let scene;
     if (role === "candidate") {

@@ -2,7 +2,7 @@ import express from "express";
 var router = express.Router();
 
 import { createScenario, listScenarios, getScenario } from "../../models";
-import { createSession, joinSession } from "../../models/Session";
+import { createSession, joinSession, getSession } from "../../models/Session";
 
 router.get("/", function (req, res, next) {
   listScenarios().then((r) => {
@@ -37,17 +37,24 @@ router.post("/start", function (req, res, next) {
   }
 });
 
-router.post("/join", function (req, res, next) {
+router.post("/join", async function (req, res, next) {
   const json = req.body;
-  if (json) {
-    joinSession(json.sessionId, json.userId, json.role)
-      .then((r) => {
-        res.status(200).json(r);
-      })
-      .catch((e) => res.status(500).json({ error: e }));
-  } else {
-    res.send("respond with a resource");
-  }
+  const isInterviewer =
+    (await (await getSession(json.sessionId)).interviewer) === json.userId;
+
+  joinSession(
+    json.sessionId,
+    json.userId,
+    isInterviewer ? "interviewer" : "candidate"
+  ).then((r) => {
+    res.status(200).json(r);
+  });
+
+  // if (json) {
+  //     .catch((e) => res.status(500).json({ error: e }));
+  // } else {
+  //   res.send("respond with a resource");
+  // }
 });
 
 router.get("/:id", function (req, res, next) {

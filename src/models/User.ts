@@ -45,3 +45,7 @@ export async function listUsers() {
   let users = await UserModel.find();
   return users;
 }
+
+export async function getUser(id) {
+  return await UserModel.findById(id);
+}

@@ -26,6 +26,11 @@ export async function createSession(interviewerId, scenarioId) {
   return session;
 }
 
+export async function getSession(id) {
+  const session = await SessionModel.findById(id);
+  return session;
+}
+
 export async function joinSession(
   sessionId,
   userId,

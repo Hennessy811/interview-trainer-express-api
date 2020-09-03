@@ -11,6 +11,7 @@ import indexRouter from "./routes/index";
 import usersRouter from "./routes/users";
 import loginRouter from "./routes/login";
 import scenesRouter from "./routes/scenes";
+import sessionsRouter from "./routes/sessions";
 
 var app = express();
 
@@ -31,6 +32,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/login", loginRouter);
 app.use("/scenes", scenesRouter);
+app.use("/sessions", sessionsRouter);
 
 app.use(bodyParser.json());
 

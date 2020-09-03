@@ -15,6 +15,7 @@ const index_1 = __importDefault(require("./routes/index"));
 const users_1 = __importDefault(require("./routes/users"));
 const login_1 = __importDefault(require("./routes/login"));
 const scenes_1 = __importDefault(require("./routes/scenes"));
+const sessions_1 = __importDefault(require("./routes/sessions"));
 var app = express_1.default();
 app.use(cors_1.default());
 app.use(morgan_1.default("dev"));
@@ -29,6 +30,7 @@ app.use("/", index_1.default);
 app.use("/users", users_1.default);
 app.use("/login", login_1.default);
 app.use("/scenes", scenes_1.default);
+app.use("/sessions", sessions_1.default);
 app.use(body_parser_1.default.json());
 exports.default = app;
 //# sourceMappingURL=app.js.map

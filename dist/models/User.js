@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.listUsers = exports.findUser = exports.User = void 0;
+exports.getUser = exports.listUsers = exports.findUser = exports.User = void 0;
 const typegoose_1 = require("@typegoose/typegoose");
 class User {
 }
@@ -65,4 +65,8 @@ async function listUsers() {
     return users;
 }
 exports.listUsers = listUsers;
+async function getUser(id) {
+    return await UserModel.findById(id);
+}
+exports.getUser = getUser;
 //# sourceMappingURL=User.js.map
